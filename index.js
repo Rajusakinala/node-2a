@@ -148,40 +148,40 @@ app.get("/delete-folder", (req, res) => {
 
 // // video chunks
 
-// app.get("/video", (req, res) => {
-//   // console.log("req", req);
-//   // const videoPath = path.join(__dirname, `uploads/${req.query.videoName}.mp4`); // Path to the video file
-//   const videoPath = path.join(__dirname, req.query.videoPath); // Path to the video file
-//   // console.log("videoPath", videoPath);
-//   // const videoPath = path.join(__dirname, `uploads/anusha.mp4`); // Path to the video file
-//   const stat = fs.statSync(videoPath);
-//   const fileSize = stat.size;
-//   const range = req.headers.range;
+app.get("/video", (req, res) => {
+  // console.log("req", req);
+  // const videoPath = path.join(__dirname, `uploads/${req.query.videoName}.mp4`); // Path to the video file
+  //   const videoPath = path.join(__dirname, req.query.videoPath); // Path to the video file
+  // console.log("videoPath", videoPath);
+  const videoPath = path.join(__dirname, `uploads/Raju.mp4`); // Path to the video file
+  const stat = fs.statSync(videoPath);
+  const fileSize = stat.size;
+  const range = req.headers.range;
 
-//   if (range) {
-//     const parts = range.replace(/bytes=/, "").split("-");
-//     const start = parseInt(parts[0], 10);
-//     const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+  if (range) {
+    const parts = range.replace(/bytes=/, "").split("-");
+    const start = parseInt(parts[0], 10);
+    const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
 
-//     const chunksize = end - start + 1;
-//     const file = fs.createReadStream(videoPath, { start, end });
-//     const head = {
-//       "Content-Range": `bytes ${start}-${end}/${fileSize}`,
-//       "Accept-Ranges": "bytes",
-//       "Content-Length": chunksize,
-//       "Content-Type": "video/mp4",
-//     };
+    const chunksize = end - start + 1;
+    const file = fs.createReadStream(videoPath, { start, end });
+    const head = {
+      "Content-Range": `bytes ${start}-${end}/${fileSize}`,
+      "Accept-Ranges": "bytes",
+      "Content-Length": chunksize,
+      "Content-Type": "video/mp4",
+    };
 
-//     res.writeHead(206, head);
-//     file.pipe(res);
-//   } else {
-//     res.writeHead(200, {
-//       "Content-Length": fileSize,
-//       "Content-Type": "video/mp4",
-//     });
-//     fs.createReadStream(videoPath).pipe(res);
-//   }
-// });
+    res.writeHead(206, head);
+    file.pipe(res);
+  } else {
+    res.writeHead(200, {
+      "Content-Length": fileSize,
+      "Content-Type": "video/mp4",
+    });
+    fs.createReadStream(videoPath).pipe(res);
+  }
+});
 
 // Start server
 app.listen(PORT, () => {
