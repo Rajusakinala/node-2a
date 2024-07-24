@@ -47,37 +47,43 @@ const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     console.log("req", req.query);
 
-    // orig
-    let path = `./uploads`;
-    if (!fs.existsSync(path)) {
-      fs.mkdirSync("uploads");
-    }
+    //temp
+    let pathdirect = path.join(__dirname, "uploads");
+    // cb(null, pathdirect);
+    cb(null, "uploads/");
 
-    if (req.query?.productID) {
-      console.log("It is product");
-      if (!fs.existsSync(`./uploads/products`)) {
-        fs.mkdirSync("uploads/products");
-      }
-      // if (!fs.existsSync(`./uploads/products/1231231234`)) {
-      //   fs.mkdirSync("uploads/products/1231231234");
-      // }
-      // cb(null, "uploads/products/1231231234/");
+    // // orig
+    // // let path = `./uploads`;
+    // let path = path.join(__dirname, "./uploads");
+    // if (!fs.existsSync(path)) {
+    //   fs.mkdirSync("uploads");
+    // }
 
-      let folderPath1 = `./uploads/products/${req.query.productID}`;
-      let folderPath2 = `uploads/products/${req.query.productID}`;
-      let folderPath3 = `uploads/products/${req.query.productID}/`;
+    // if (req.query?.productID) {
+    //   console.log("It is product");
+    //   if (!fs.existsSync(`./uploads/products`)) {
+    //     fs.mkdirSync("uploads/products");
+    //   }
+    //   // if (!fs.existsSync(`./uploads/products/1231231234`)) {
+    //   //   fs.mkdirSync("uploads/products/1231231234");
+    //   // }
+    //   // cb(null, "uploads/products/1231231234/");
 
-      if (!fs.existsSync(folderPath1)) {
-        fs.mkdirSync(folderPath2);
-      }
-      cb(null, folderPath3);
-    } else if (req.query?.merchantID) {
-      console.log("It is merchant");
-      cb(null, "uploads/");
-    } else {
-      console.log("It is not product and not merchant");
-      cb(null, "uploads/");
-    }
+    //   let folderPath1 = `./uploads/products/${req.query.productID}`;
+    //   let folderPath2 = `uploads/products/${req.query.productID}`;
+    //   let folderPath3 = `uploads/products/${req.query.productID}/`;
+
+    //   if (!fs.existsSync(folderPath1)) {
+    //     fs.mkdirSync(folderPath2);
+    //   }
+    //   cb(null, folderPath3);
+    // } else if (req.query?.merchantID) {
+    //   console.log("It is merchant");
+    //   cb(null, "uploads/");
+    // } else {
+    //   console.log("It is not product and not merchant");
+    //   cb(null, "uploads/");
+    // }
 
     // // direct to uploads folder
     // let path = `./uploads`;
