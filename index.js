@@ -38,9 +38,9 @@ app.get("/test", (req, res) => {
   res.send("welcome test");
 });
 
-// const staticPath = path.join(__dirname, "uploads");
-// app.use(express.static(staticPath));
-app.use(express.static("uploads"));
+const staticPath = path.join(__dirname, "uploads");
+app.use(express.static(staticPath));
+// app.use(express.static("uploads"));
 
 // Multer configuration
 const storage = multer.diskStorage({
