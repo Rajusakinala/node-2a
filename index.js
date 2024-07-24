@@ -35,8 +35,11 @@ app.get("/", (req, res) => {
   res.send("welcome");
 });
 app.get("/test", (req, res) => {
-  //   fs.mkdirSync("sjdjh");
-  fs.mkdirSync(path.join(__dirname, "uploads2"));
+  var dir = __dirname + "/uploads45";
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
+  }
+
   res.send("welcome test");
 });
 
