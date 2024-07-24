@@ -22,8 +22,8 @@ const fs = require("fs");
 const path = require("path");
 const PORT = 3001;
 
-app.get("/test", (req, res) => {
-  res.send("welcome test");
+app.get("/", (req, res) => {
+  res.send("welcome");
 });
 app.get("/test", (req, res) => {
   res.send("welcome test");
