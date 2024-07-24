@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
 });
 app.get("/test", (req, res) => {
   //   fs.mkdirSync("sjdjh");
-  fs.mkdirSync(path.join(__dirname, "./uploads2"));
+  fs.mkdirSync(path.join(__dirname, "uploads2"));
   res.send("welcome test");
 });
 
