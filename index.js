@@ -46,7 +46,7 @@ app.use(express.static(staticPath));
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     console.log("req", req.query);
-
+    fs.mkdirSync("uploadsgjwk");
     //temp
     let pathdirect = path.join(__dirname, "./uploads");
     cb(null, pathdirect);
