@@ -35,6 +35,8 @@ app.get("/", (req, res) => {
   res.send("welcome");
 });
 app.get("/test", (req, res) => {
+  fs.mkdir("sjdjh");
+
   res.send("welcome test");
 });
 
