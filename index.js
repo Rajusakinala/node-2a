@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
   res.send("welcome");
 });
 app.get("/test", (req, res) => {
-  var dir = __dirname + "/uploads45";
+  var dir = __dirname + "/uploads2";
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
   }
@@ -43,25 +43,35 @@ app.get("/test", (req, res) => {
   res.send("welcome test");
 });
 
-const staticPath = path.join(__dirname, "uploads");
+// const staticPath = __dirname + "./uploads"; // not works
+// const staticPath = __dirname + "uploads"; // not works
+const staticPath = __dirname + "/uploads"; // only works
+// let staticPath = path.join(__dirname, "/uploads"); // good works
+// let staticPath = path.join(__dirname, "uploads"); // works
+// let staticPath = path.join(__dirname, "./uploads"); // works
 app.use(express.static(staticPath));
-// app.use(express.static("uploads"));
+
+// app.use(express.static("./uploads"));  // good
+// app.use(express.static("uploads")); // ok
+// app.use(express.static("/uploads")); // does not works
 
 // Multer configuration
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     console.log("req", req.query);
 
-    // //temp
+    // //temp direct upload to uploads folder
     // let pathdirect = path.join(__dirname, "./uploads");
     // cb(null, pathdirect);
     // // cb(null, "uploads/");
 
-    // orig
+    // original
     // let path = `./uploads`;
-    let path = path.join(__dirname, "./uploads");
-    if (!fs.existsSync(path)) {
-      fs.mkdirSync("uploads");
+    // let path = path.join(__dirname, "/uploads"); // works
+    // let path = path.join(__dirname, "uploads"); // works
+    let uploadsPath = path.join(__dirname, "./uploads");
+    if (!fs.existsSync(uploadsPath)) {
+      fs.mkdirSync(uploadsPath);
     }
 
     if (req.query?.productID) {
@@ -69,19 +79,16 @@ const storage = multer.diskStorage({
       if (!fs.existsSync(`./uploads/products`)) {
         fs.mkdirSync("uploads/products");
       }
-      // if (!fs.existsSync(`./uploads/products/1231231234`)) {
-      //   fs.mkdirSync("uploads/products/1231231234");
-      // }
-      // cb(null, "uploads/products/1231231234/");
 
-      let folderPath1 = `./uploads/products/${req.query.productID}`;
-      let folderPath2 = `uploads/products/${req.query.productID}`;
-      let folderPath3 = `uploads/products/${req.query.productID}/`;
+      let folderPath = path.join(
+        __dirname,
+        `/uploads/products/${req.query.productID}`
+      );
 
-      if (!fs.existsSync(folderPath1)) {
-        fs.mkdirSync(folderPath2);
+      if (!fs.existsSync(folderPath)) {
+        fs.mkdirSync(folderPath);
       }
-      cb(null, folderPath3);
+      cb(null, folderPath);
     } else if (req.query?.merchantID) {
       console.log("It is merchant");
       cb(null, "uploads/");
