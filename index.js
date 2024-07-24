@@ -190,7 +190,7 @@ app.get("/video", (req, res) => {
 });
 
 app.get("/create-folder", (req, res) => {
-  fs.mkdir("sjdjh");
+  //   fs.mkdir("sjdjh");
   res.send("folder created");
 });
 
