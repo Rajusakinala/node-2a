@@ -48,9 +48,9 @@ const storage = multer.diskStorage({
     console.log("req", req.query);
 
     //temp
-    // let pathdirect = path.join(__dirname, "uploads");
-    // cb(null, pathdirect);
-    cb(null, "uploads/");
+    let pathdirect = path.join(__dirname, "./uploads");
+    cb(null, pathdirect);
+    // cb(null, "uploads/");
 
     // // orig
     // // let path = `./uploads`;
