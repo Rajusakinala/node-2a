@@ -22,6 +22,10 @@ const fs = require("fs");
 const path = require("path");
 const PORT = 3001;
 
+app.get("/test", (req, res) => {
+  res.send("welcome test");
+});
+
 // const staticPath = path.join(__dirname, "uploads");
 // app.use(express.static(staticPath));
 app.use(express.static("uploads"));
